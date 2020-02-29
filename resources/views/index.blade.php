@@ -116,7 +116,7 @@
                     <div class="btn-group">
                       <!--button type="button" class="btn btn-sm btn-outline-secondary">Download</button-->
                       <a type="button" class="btn btn-sm btn-outline-secondary" href="#">Download</a>
-                      <form>
+                      <form method="post" action="/{{ $post->id }}">
                         @csrf
                         <input type="hidden" name="_method" value="delete">
                         <button type="submit" class="btn btn-sm btn-outline-danger">Apagar</button>
