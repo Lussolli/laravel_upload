@@ -20,16 +20,6 @@ class PostControlador extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -48,40 +38,6 @@ class PostControlador extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -96,6 +52,25 @@ class PostControlador extends Controller
                 Storage::disk('public')->delete($arquivo);
         
             $post->delete();
+        }
+
+        return redirect('/');
+    }
+
+    /**
+     * Fazer o download de um arquivo.
+     * 
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function download($id) {
+        $post = Post::find($id);
+        if (isset($post)) {
+            // Pega o caminho absoluto do arquivo.
+            $arquivo = Storage::disk('public')->getDriver()->getAdapter()->applyPathPrefix($post->arquivo);
+
+            // Faz o donwload do arquivo.
+            return response()->download($arquivo);
         }
 
         return redirect('/');
